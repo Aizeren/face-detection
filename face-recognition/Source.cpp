@@ -2,23 +2,28 @@
 
 int main()
 {
-	string photos[] = {
-		"../photos/photo1.jpg",
-		"../photos/photo2.jpg",
-		"../photos/photo3.jpg",
-		"../photos/photo4.jpg",
-		"../photos/photo5.jpg",
-		"../photos/photo6.jpg"
+	const string photosDir = "../photos/";
+	const string templatesDir = "../templates3/";
+	const string resultsDir = "../results/";
+	const string photos[] = {
+		"photo1.jpg",
+		"photo2.jpg",
+		"photo3.jpg",
+		"photo4.jpg",
+		"photo5.jpg",
+		"photo6.jpg",
+		"photo7.jpg",
+		"photo8.jpg"
 	};
-	string templates[] = {
-		"../templates/full_face.jpg",
-		"../templates/eyes_and_nose.jpg",
-		"../templates/eye.jpg"
+	const string templates[] = {
+		"full_face.jpg",
+		"eyes_and_nose.jpg",
+		"eye.jpg"
 	};
 
 	for (const string& photo : photos)
 		for (const string& templ : templates)
-			find_face(photo, templ, 5);
+			find_face(photo, photosDir, templ, templatesDir, resultsDir, 3);
 
 	return 0;
 }

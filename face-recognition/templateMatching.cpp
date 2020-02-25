@@ -1,13 +1,13 @@
 #include "templateMatching.h"
 
-void find_face(string photo_img, string templ_img, int method) {
+void find_face(string photo_img, string photoDir, string templ_img, string templDir, string resultsDir, int method) {
 	if (method > 5 || method < 0)
 		exit(-2);
 	Mat photo;
 	Mat templ;
 	try {
-		photo = imread(photo_img, 0);
-		templ = imread(templ_img, 0);
+		photo = imread(photoDir + photo_img, 0);
+		templ = imread(templDir + templ_img, 0);
 		if (photo.data == NULL || templ.data == NULL)
 			throw 0;
 	}
@@ -16,14 +16,6 @@ void find_face(string photo_img, string templ_img, int method) {
 		exit(-1);
 	}
 	
-	{
-		double scale;
-		if (photo.size().height < photo.size().width)
-			scale = 0.5 * (photo.size().height) / (templ.size().height);
-		else 
-			scale = 0.5 * (photo.size().width) / (templ.size().width);
-		resize(templ, templ, Size(), scale, scale);
-	}
 	Mat scaledTempl(templ);
 	Mat result;
 	int scaledTemplWidth = scaledTempl.size().width,
@@ -38,7 +30,7 @@ void find_face(string photo_img, string templ_img, int method) {
 											{4, "CCOEFF"},
 											{5, "CCOEFF_NORMED"} };
 
-	for (double scale = 0.2; scale < 1.7; scale += 0.1) {
+	for (double scale = 0.9; scale <= 1.1; scale += 0.1) {
 		resize(templ, scaledTempl, Size(), scale, scale);
 
 		matchTemplate(photo, scaledTempl, result, method);
@@ -68,9 +60,17 @@ void find_face(string photo_img, string templ_img, int method) {
 
 	rectangle(photo, topLeft, bottomRight, 255);
 
-	imshow(methodsMap.at(method) + " " + photo_img + " " + templ_img, photo);
+	/*imshow(methodsMap.at(method) + " " + photo_img + " " + templ_img, photo);
 
-	waitKey(0);
+	waitKey(0);*/
+
+	//delete .jpg from filenames
+	photo_img.erase(photo_img.length() - 4, 4);
+	templ_img.erase(templ_img.length() - 4, 4);
+
+	std::filesystem::create_directory(resultsDir + methodsMap.at(method));
+	
+	imwrite(resultsDir + methodsMap.at(method) + "/" + photo_img + "_" + templ_img + ".jpg", photo);
 
 	return;
 }
