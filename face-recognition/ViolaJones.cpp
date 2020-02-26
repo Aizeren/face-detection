@@ -1,4 +1,5 @@
 #include "ViolaJones.h"
+#include <time.h>
 
 int find_face_in_stream_ViolaJones() {
 	CascadeClassifier face_cascade;
@@ -18,19 +19,28 @@ int find_face_in_stream_ViolaJones() {
 		cout << "Error opening capture" << endl;
 		exit(-1);
 	}
-
+	/*int frames = 0;
+	time_t timestart = time(NULL);*/
 	while (capture.read(frame)) {
+		
 		if (frame.empty()) {
 			cout << "Frame is empty" << endl;
 			break;
 		}
 		resize(frame, frame, Size(), 0.5, 0.5);
-
 		findFaceAndDisplay(frame, face_cascade);
-
+		
+		
 		if (waitKey(1) == 32) { //space pressed
 			break;
 		}
+		/*if (time(NULL) - timestart >= 1) {
+			cout << frames << endl;
+			timestart = time(NULL);
+			frames = 0;
+			cout << frame.size() << endl << endl;
+		}
+		++frames;*/
 	}
 
 	return 0;
@@ -50,7 +60,7 @@ void findFaceAndDisplay(Mat &frame, CascadeClassifier &classifier) {
 	classifier.detectMultiScale(frame, faces);
 
 	for (size_t i = 0; i < faces.size(); ++i) {
-		rectangle(frame, Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height), Scalar(0, 0, 255), 2);
+		rectangle(frame, Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height), Scalar(255, 255, 255), 5);
 	}
 
 	imshow("Viola Jones face detecting", frame);

@@ -30,14 +30,15 @@ void find_face_templMatch(string photo_img, string photoDir, string templ_img, s
 											{4, "CCOEFF"},
 											{5, "CCOEFF_NORMED"} };
 
-	for (double scale = 0.5; scale <= 1.1; scale += 0.1) {
+	for (double scale = 0.9; scale <= 1.2; scale += 0.1) {
 		resize(templ, scaledTempl, Size(), scale, scale);
 
 		matchTemplate(photo, scaledTempl, result, method);
 		minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc);
 
 		if (method == 0 || method == 1) {
-			/*if (minVal < bestMinVal)*/ {
+			if (minVal < bestMinVal) 
+			{
 				bestMinVal = minVal;
 				bestMinLoc = minLoc;
 				scaledTemplHeight = scaledTempl.size().height;
@@ -45,27 +46,29 @@ void find_face_templMatch(string photo_img, string photoDir, string templ_img, s
 			}
 		}
 		else
-			/*if (maxVal > bestMaxVal)*/ {
+			if (maxVal > bestMaxVal) 
+			{
 				bestMaxVal = maxVal;
 				bestMaxLoc = maxLoc;
 				scaledTemplHeight = scaledTempl.size().height;
 				scaledTemplWidth = scaledTempl.size().width;
 			}
-		if (method == 0 || method == 1)
+		/*if (method == 0 || method == 1)
 			topLeft = bestMinLoc;
 		else
 			topLeft = bestMaxLoc;
 		bottomRight = Point(topLeft.x + scaledTemplWidth, topLeft.y + scaledTemplHeight);
 
-		rectangle(photo, topLeft, bottomRight, 255);
+		rectangle(photo, topLeft, bottomRight, 0, 2);*/
 	}
-	/*if (method == 0 || method == 1)
+	if (method == 0 || method == 1)
 		topLeft = bestMinLoc;
 	else
 		topLeft = bestMaxLoc;
 	bottomRight = Point(topLeft.x + scaledTemplWidth, topLeft.y + scaledTemplHeight);
 
-	rectangle(photo, topLeft, bottomRight, 255);*/
+	rectangle(photo, topLeft, bottomRight, 0, 7);
+	rectangle(photo, topLeft, bottomRight, 0, 2);
 
 	/*imshow(methodsMap.at(method) + " " + photo_img + " " + templ_img, photo);
 
