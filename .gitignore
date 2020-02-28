@@ -384,7 +384,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
 *.jpg
-face-recognition.sln
-face-recognition/face-recognition.vcxproj
-face-recognition/face-recognition.vcxproj.filters
+face-detection/face-detection.vcxproj
+face-detection/face-detection.vcxproj.filters
+face-detection.sln
