@@ -389,3 +389,4 @@ MigrationBackup/
 face-detection/face-detection.vcxproj
 face-detection/face-detection.vcxproj.filters
 face-detection.sln
+build/
