@@ -3,8 +3,8 @@
 
 int main(int argc, const char ** argv)
 {
-	bool isTemplMatch = 0;
-	bool isViolaJones = 1;
+	bool isTemplMatch = 1;
+	bool isViolaJones = 0;
 
 	if (isTemplMatch) {
 		const string photosDir = "../photos/";
@@ -31,11 +31,11 @@ int main(int argc, const char ** argv)
 
 		for (const string& photo : photos)
 			for (const string& templ : templates)
-				find_face_templMatch(photo, photosDir, templ, templatesDir, resultsDir, 3);
+				find_face_templMatch(photo, photosDir, templ, templatesDir, resultsDir, 3, 0.9, 1.2);
 	}
-	
+
 	if (isViolaJones) {
-		find_face_in_stream_ViolaJones();
+		find_face_in_stream_ViolaJones(1);
 	}
 	
 	return 0;

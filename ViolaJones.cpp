@@ -1,7 +1,7 @@
 #include "ViolaJones.h"
 #include <time.h>
 
-int find_face_in_stream_ViolaJones() {
+int find_face_in_stream_ViolaJones(float scale) {
 	CascadeClassifier face_cascade;
 	int cameraNum = 0;
 	String faceCascadePath = "C:/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
@@ -27,7 +27,7 @@ int find_face_in_stream_ViolaJones() {
 			cout << "Frame is empty" << endl;
 			break;
 		}
-		resize(frame, frame, Size(), 0.5, 0.5);
+		resize(frame, frame, Size(), scale, scale);
 		findFaceAndDisplay(frame, face_cascade);
 		
 		

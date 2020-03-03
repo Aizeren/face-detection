@@ -11,4 +11,4 @@ using namespace cv;
 using namespace std;
 
 //Find face on photo using template matching
-void find_face_templMatch(string, string, string, string, string, int);
+void find_face_templMatch(string, string, string, string, string, int, float, float);

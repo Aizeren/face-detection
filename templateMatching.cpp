@@ -1,6 +1,7 @@
 #include "templateMatching.h"
 
-void find_face_templMatch(string photo_img, string photoDir, string templ_img, string templDir, string resultsDir, int method) {
+void find_face_templMatch(string photo_img, string photoDir, string templ_img,
+	string templDir, string resultsDir, int method, float scaleMin, float scaleMax) {
 	if (method > 5 || method < 0)
 		exit(-2);
 	Mat photo;
@@ -12,7 +13,7 @@ void find_face_templMatch(string photo_img, string photoDir, string templ_img, s
 			throw 0;
 	}
 	catch (...) {
-		cout << "Image has no data!" << endl;
+		cout << "Image " + photo_img + " has no data!" << endl;
 		exit(-1);
 	}
 	
@@ -30,7 +31,7 @@ void find_face_templMatch(string photo_img, string photoDir, string templ_img, s
 											{4, "CCOEFF"},
 											{5, "CCOEFF_NORMED"} };
 
-	for (double scale = 0.9; scale <= 1.2; scale += 0.1) {
+	for (double scale = scaleMin; scale <= scaleMax; scale += 0.1) {
 		resize(templ, scaledTempl, Size(), scale, scale);
 
 		matchTemplate(photo, scaledTempl, result, method);

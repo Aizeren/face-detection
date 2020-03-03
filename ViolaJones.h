@@ -8,5 +8,5 @@
 using namespace std;
 using namespace cv;
 
-int find_face_in_stream_ViolaJones();
+int find_face_in_stream_ViolaJones(float scale);
 void findFaceAndDisplay(Mat&, CascadeClassifier&);
